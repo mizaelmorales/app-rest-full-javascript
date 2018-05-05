@@ -1,0 +1,24 @@
+{
+  "name": "mizagram",
+  "version": "1.0.0",
+  "description": "proyecto javascript",
+  "main": "server.js",
+  "keywords": [
+    "platzi",
+    "javascript"
+  ],
+  "author": "mizael morales",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "hammerjs": "^2.0.8",
+    "jquery": "^3.3.1",
+    "materialize-css": "^0.100.2",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1"
+  }
+}

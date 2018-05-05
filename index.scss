@@ -1,0 +1,56 @@
+$secondary-color: #125688;
+//para poder requirir sass
+@import "node_modules/materialize-css/sass/materialize.scss";
+
+body {
+    background: #fafafa;
+    color: #125688;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#maincontainer {
+    margin: 30px auto;
+}
+
+.iphone {
+    max-width: 100%;
+
+}
+
+.site-footer {
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.login-box , .signup-box {
+    background-color:white;
+    border: 1px solid #edeeee;
+    border-radius: 3px;
+    padding: 10px 7px;
+    text-align: center;
+}
+
+.signup-form .platzigram {
+    font-family: 'Oleo Script', cursive;
+    font-size: 42px;
+    text-align: center;
+}
+
+.signup-form {
+    width: 99%;
+    margin: 0 auto;
+}
+
+.signup-form h2 {
+    color: #a5a7aa;
+    font-size: 17.2px;
+}
+
+.signup-form .btn.btn-fb {
+    background: #4090db;
+    font-size: .9en;
+}
+
+.signup-form .btn.btn-fb:hover {
+    background-color: #2d6599;
+}
