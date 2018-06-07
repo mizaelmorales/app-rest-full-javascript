@@ -55,4 +55,4 @@ gulp.task('watch', function () {
 	return compile(true);
 });
 
-gulp.task('default',['styles', 'assets','scripts']);
+gulp.task('default',['styles', 'assets','build']);
