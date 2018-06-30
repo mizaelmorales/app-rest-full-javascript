@@ -2671,6 +2671,170 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 },{}],13:[function(require,module,exports){
+// Utilities
+const lowerCase = require('./lower-case')
+const specials = require('./specials')
+
+const regex = /(?:(?:(\s?(?:^|[.\(\)!?;:"-])\s*)(\w))|(\w))(\w*[’']*\w*)/g
+
+const convertToRegExp = specials => specials.map(s => [new RegExp(`\\b${s}\\b`, 'gi'), s])
+
+function parseMatch(match) {
+  const firstCharacter = match[0]
+
+  // test first character
+  if (/\s/.test(firstCharacter)) {
+    // if whitespace - trim and return
+    return match.substr(1)
+  }
+  if (/[\(\)]/.test(firstCharacter)) {
+    // if parens - this shouldn't be replaced
+    return null
+  }
+
+  return match
+}
+
+module.exports = (str, options = {}) => {
+  str = str.toLowerCase().replace(regex, (m, lead = '', forced, lower, rest) => {
+    const parsedMatch = parseMatch(m)
+    if (!parsedMatch) {
+      return m
+    }
+    if (!forced) {
+      const fullLower = lower + rest
+
+      if (lowerCase.has(fullLower)) {
+        return parsedMatch
+      }
+    }
+
+    return lead + (lower || forced).toUpperCase() + rest
+  })
+
+  const customSpecials = options.special || []
+  const replace = [...specials, ...customSpecials]
+  const replaceRegExp = convertToRegExp(replace)
+
+  replaceRegExp.forEach(([pattern, s]) => {
+    str = str.replace(pattern, s)
+  })
+
+  return str
+}
+
+},{"./lower-case":14,"./specials":15}],14:[function(require,module,exports){
+const conjunctions = [
+  'for',
+  'and',
+  'nor',
+  'but',
+  'or',
+  'yet',
+  'so'
+]
+
+const articles = [
+  'a',
+  'an',
+  'the'
+]
+
+const prepositions = [
+  'aboard',
+  'about',
+  'above',
+  'across',
+  'after',
+  'against',
+  'along',
+  'amid',
+  'among',
+  'anti',
+  'around',
+  'as',
+  'at',
+  'before',
+  'behind',
+  'below',
+  'beneath',
+  'beside',
+  'besides',
+  'between',
+  'beyond',
+  'but',
+  'by',
+  'concerning',
+  'considering',
+  'despite',
+  'down',
+  'during',
+  'except',
+  'excepting',
+  'excluding',
+  'following',
+  'for',
+  'from',
+  'in',
+  'inside',
+  'into',
+  'like',
+  'minus',
+  'near',
+  'of',
+  'off',
+  'on',
+  'onto',
+  'opposite',
+  'over',
+  'past',
+  'per',
+  'plus',
+  'regarding',
+  'round',
+  'save',
+  'since',
+  'than',
+  'through',
+  'to',
+  'toward',
+  'towards',
+  'under',
+  'underneath',
+  'unlike',
+  'until',
+  'up',
+  'upon',
+  'versus',
+  'via',
+  'with',
+  'within',
+  'without'
+]
+
+module.exports = new Set([
+  ...conjunctions,
+  ...articles,
+  ...prepositions
+])
+
+},{}],15:[function(require,module,exports){
+const intended = [
+  'ZEIT',
+  'ZEIT Inc.',
+  'CLI',
+  'API',
+  'Next.js',
+  'Node.js',
+  'HTTP',
+  'HTTPS',
+  'JSX',
+  'DNS'
+]
+
+module.exports = intended
+
+},{}],16:[function(require,module,exports){
 var bel = require('bel') // turns template tag into DOM elements
 var morphdom = require('morphdom') // efficiently diffs + morphs two DOM elements
 var defaultEvents = require('./update-events.js') // default events to be copied when dom elements update
@@ -2714,7 +2878,7 @@ module.exports.update = function (fromNode, toNode, opts) {
   }
 }
 
-},{"./update-events.js":14,"bel":1,"morphdom":8}],14:[function(require,module,exports){
+},{"./update-events.js":17,"bel":1,"morphdom":8}],17:[function(require,module,exports){
 module.exports = [
   // attribute events (can be set with attributes)
   'onclick',
@@ -2752,7 +2916,7 @@ module.exports = [
   'onfocusout'
 ]
 
-},{}],15:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 var page = require('page');
 
 page('/', function (ctx, next) {
@@ -2760,14 +2924,14 @@ page('/', function (ctx, next) {
     main.innerHTML = '<a href="signup">sig </a>';
 });
 
-},{"page":11}],16:[function(require,module,exports){
+},{"page":11}],19:[function(require,module,exports){
 var page = require('page');
 require('./homepage');
 require('./signup');
 require('./signin');
 page();
 
-},{"./homepage":15,"./signin":18,"./signup":20,"page":11}],17:[function(require,module,exports){
+},{"./homepage":18,"./signin":21,"./signup":23,"page":11}],20:[function(require,module,exports){
 var yo = require('yo-yo');
 module.exports = function landing(box) {
 
@@ -2786,18 +2950,20 @@ module.exports = function landing(box) {
     </div>`;
 };
 
-},{"yo-yo":13}],18:[function(require,module,exports){
+},{"yo-yo":16}],21:[function(require,module,exports){
 var page = require('page');
 var template = require('./template.js');
 var empty = require('empty-element');
+var title = require('title');
 
 page('/signin', function (ctx, next) {
+    title('Mizagram - Signin');
     var main = document.getElementById('main-container');
     //vacia un elemento y luego carga otro con el append
     empty(main).appendChild(template);
 });
 
-},{"./template.js":19,"empty-element":3,"page":11}],19:[function(require,module,exports){
+},{"./template.js":22,"empty-element":3,"page":11,"title":13}],22:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 var signinForm = yo`               <div class="col s12 m7">
@@ -2827,18 +2993,20 @@ var signinForm = yo`               <div class="col s12 m7">
 
 module.exports = landing(signinForm);
 
-},{"../landing":17,"yo-yo":13}],20:[function(require,module,exports){
+},{"../landing":20,"yo-yo":16}],23:[function(require,module,exports){
 var page = require('page');
 var template = require('./template.js');
 var empty = require('empty-element');
+var title = require('title');
 
 page('/signup', function (ctx, next) {
+    title('Mizagram - Signup');
     var main = document.getElementById('main-container');
     //vacia un elemento y luego carga otro con el append
     empty(main).appendChild(template);
 });
 
-},{"./template.js":21,"empty-element":3,"page":11}],21:[function(require,module,exports){
+},{"./template.js":24,"empty-element":3,"page":11,"title":13}],24:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 var signupForm = yo`               <div class="col s12 m7">
@@ -2871,4 +3039,4 @@ var signupForm = yo`               <div class="col s12 m7">
 
 module.exports = landing(signupForm);
 
-},{"../landing":17,"yo-yo":13}]},{},[16]);
+},{"../landing":20,"yo-yo":16}]},{},[19]);

@@ -18,6 +18,8 @@
     "materialize-css": "^0.100.2",
     "page": "^1.8.6",
     "pug": "^2.0.3",
+    "title": "^3.3.0",
+    "title-case": "^2.1.1",
     "yo-yo": "^1.4.1"
   },
   "devDependencies": {
