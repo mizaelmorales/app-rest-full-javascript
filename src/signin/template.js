@@ -7,7 +7,7 @@ var signinForm  = yo`               <div class="col s12 m7">
         <form class="signup-box">
                 <div class="section">
                     <a class="btn btn-fb hide-on-small-only">Iniciar sesion con Facebook</a>
-                    <a class="btn btn-fb hide-on-med-and-up">Iniciar sesion</a>
+                    <a class="btn btn-fb hide-on-med-and-up"><i class="fa fa-facebook-official"> Iniciar sesion</a>
                 </div>
                 <div class="divider"></div>
                 <div class="section">
@@ -19,6 +19,7 @@ var signinForm  = yo`               <div class="col s12 m7">
         </form>
     </div>
 
+</div>
 </div>
 <div class="row center">
 <div class="login-box">¿No Tienes un cuenta?<a href="/signup">Registrate</a>
