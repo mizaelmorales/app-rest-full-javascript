@@ -6960,3 +6960,6 @@ body {
   color: #125688;
   box-shadow: none;
   border-bottom: 1px solid #edeeee; }
+
+.timeline {
+  padding: 30px 0; }

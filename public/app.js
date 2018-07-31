@@ -2926,31 +2926,55 @@ page('/', function (ctx, next) {
     title('Mizagram');
     var main = document.getElementById('main-container');
     //vacia un elemento y luego carga otro con el append
-    empty(main).appendChild(template);
+
+    var pictures = [{
+        user: {
+            username: 'miza',
+            avatar: 'https://avatars3.githubusercontent.com/u/36098966?s=460&v=4'
+        },
+        url: 'https://materializecss.com/images/office.jpg',
+        likes: 2012,
+        liked: true
+    }, {
+        user: {
+            username: 'miza',
+            avatar: 'https://avatars3.githubusercontent.com/u/36098966?s=460&v=4'
+        },
+        url: 'https://materializecss.com/images/office.jpg',
+        likes: 2012,
+        liked: true
+    }];
+
+    empty(main).appendChild(template(pictures));
 });
 
 },{"./template.js":19,"empty-element":3,"page":11,"title":13}],19:[function(require,module,exports){
 var yo = require('yo-yo');
 var layout = require('../layout');
+var picture = require('../picture-card');
 
-var template = yo`<div class="container timeline">
-<div class="row">
-<div class="col s12 m10 offset-m1 l6 offset-l3">
-content baby
-</div>
-</div>
-</div>`;
+module.exports = function (pictures) {
 
-module.exports = layout(template);
+    var el = yo`<div class="container timeline">
+    <div class="row">
+    <div class="col s12 m10 offset-m1 l6 offset-l3">
+    ${pictures.map(function (pic) {
+        return picture(pic);
+    })}
+    </div>
+    </div>
+    </div>`;
+    return layout(el);
+};
 
-},{"../layout":22,"yo-yo":16}],20:[function(require,module,exports){
+},{"../layout":22,"../picture-card":23,"yo-yo":16}],20:[function(require,module,exports){
 var page = require('page');
 require('./homepage');
 require('./signup');
 require('./signin');
 page();
 
-},{"./homepage":18,"./signin":23,"./signup":25,"page":11}],21:[function(require,module,exports){
+},{"./homepage":18,"./signin":24,"./signup":26,"page":11}],21:[function(require,module,exports){
 var yo = require('yo-yo');
 module.exports = function landing(box) {
 
@@ -3002,6 +3026,29 @@ module.exports = function (content) {
 };
 
 },{"yo-yo":16}],23:[function(require,module,exports){
+var yo = require('yo-yo');
+
+module.exports = function (pic) {
+  return yo`
+<div class="card">
+<div class="card-image">
+  <img class="activator" src="${pic.url}">
+</div> 
+<div class="card-content">
+  <a href="/user/${pic.user.username} "class="card-title">
+    <img src="${pic.user.avatar}" class="avatar" />
+    <span class="username">${pic.user.username}</span>
+  </a>
+  <small class="right time">Hace 1 Dia</small>
+  <p>
+    <a class="left" href='#'> <i class="fa fa-heart-o" aria-hidden="true"></i>  </a>
+    <span class="left likes">${pic.likes} me gusta</span>
+    </p>
+</div>
+</div>`;
+};
+
+},{"yo-yo":16}],24:[function(require,module,exports){
 var page = require('page');
 var template = require('./template.js');
 var empty = require('empty-element');
@@ -3014,7 +3061,7 @@ page('/signin', function (ctx, next) {
     empty(main).appendChild(template);
 });
 
-},{"./template.js":24,"empty-element":3,"page":11,"title":13}],24:[function(require,module,exports){
+},{"./template.js":25,"empty-element":3,"page":11,"title":13}],25:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 var signinForm = yo`               <div class="col s12 m7">
@@ -3045,7 +3092,7 @@ var signinForm = yo`               <div class="col s12 m7">
 
 module.exports = landing(signinForm);
 
-},{"../landing":21,"yo-yo":16}],25:[function(require,module,exports){
+},{"../landing":21,"yo-yo":16}],26:[function(require,module,exports){
 var page = require('page');
 var template = require('./template.js');
 var empty = require('empty-element');
@@ -3058,7 +3105,7 @@ page('/signup', function (ctx, next) {
     empty(main).appendChild(template);
 });
 
-},{"./template.js":26,"empty-element":3,"page":11,"title":13}],26:[function(require,module,exports){
+},{"./template.js":27,"empty-element":3,"page":11,"title":13}],27:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 var signupForm = yo`               <div class="col s12 m7">
