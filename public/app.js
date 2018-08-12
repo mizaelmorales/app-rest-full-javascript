@@ -3041,7 +3041,7 @@ module.exports = function (pic) {
   </a>
   <small class="right time">Hace 1 Dia</small>
   <p>
-    <a class="left" href='#'> <i class="fa fa-heart-o" aria-hidden="true"></i>  </a>
+    <a class="left" href='#'><i class="far fa-heart"></i></a>
     <span class="left likes">${pic.likes} me gusta</span>
     </p>
 </div>
