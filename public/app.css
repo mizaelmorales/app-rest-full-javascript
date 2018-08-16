@@ -6986,3 +6986,13 @@ body {
 
 .card .fa-heart {
   color: #125688; }
+
+.card .fas {
+  color: #f44336;
+  display: none; }
+
+.card.liked .fas {
+  display: block; }
+
+.card.liked .far {
+  display: none; }

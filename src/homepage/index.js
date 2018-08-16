@@ -25,7 +25,7 @@ page('/', function(ctx,next){
              },
              url: 'https://materializecss.com/images/office.jpg',
              likes :2012,
-             liked:true
+             liked:false
          },
         
     ];
