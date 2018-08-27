@@ -15,8 +15,9 @@ page('/', function(ctx,next){
             avatar: 'https://avatars3.githubusercontent.com/u/36098966?s=460&v=4'
             },
             url: 'https://materializecss.com/images/office.jpg',
-            likes :2012,
-            liked:true
+            likes :0,
+            liked:true,
+            createAt: new Date()
         },
         {
             user: {
@@ -24,8 +25,9 @@ page('/', function(ctx,next){
              avatar: 'https://avatars3.githubusercontent.com/u/36098966?s=460&v=4'
              },
              url: 'https://materializecss.com/images/office.jpg',
-             likes :2012,
-             liked:false
+             likes :1,
+             liked:false,
+             createAt: new Date().setDate(new Date().getDate()-10)
          },
         
     ];
