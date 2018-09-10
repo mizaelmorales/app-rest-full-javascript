@@ -1,4 +1,5 @@
 var yo = require('yo-yo');
+var translate = require('../translate');
 module.exports = function landing (box){ 
 
  return yo`<div class="container">
